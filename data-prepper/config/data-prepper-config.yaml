@@ -1,2 +1,5 @@
 ssl: false
-serverPort: 4900
+
+extensions:
+  geoip_service:
+    maxmind:
