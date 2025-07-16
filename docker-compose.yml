@@ -37,7 +37,7 @@ services:
         - "/var/run/docker.sock:/var/run/docker.sock"
   data-prepper:
       container_name: data-prepper
-      image: opensearchproject/data-prepper:2.7.0
+      image: opensearchproject/data-prepper:latest
       ports:
         - "4900:4900"
         - "21890:21890"

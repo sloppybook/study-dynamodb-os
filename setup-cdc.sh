@@ -4,7 +4,7 @@ echo "🚀 DynamoDB CDCセットアップスクリプト"
 
 # LocalStackとData Prepperが起動するまで待機
 echo "⏳ サービスの起動を待機中..."
-sleep 30
+sleep 5
 
 # DynamoDBテーブルの作成
 echo "📊 DynamoDBテーブル 'test-table' を作成中..."
