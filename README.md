@@ -1,3 +1,4 @@
+```bash
 docker compose up -d
 docker exec localstack bash
 awslocal opensearch create-domain --domain-name my-domain
@@ -5,7 +6,7 @@ awslocal opensearch describe-domain --domain-name my-domain
 exit
 curl -X PUT http://my-domain.us-east-1.opensearch.localhost.localstack.cloud:4566/my-index
 curl http://my-domain.us-east-1.opensearch.localhost.localstack.cloud:4566/_cluster/health
-
+```
 
 ## curlでDynamoDBテーブル操作をするコマンド
 
