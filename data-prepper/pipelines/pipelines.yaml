@@ -21,12 +21,11 @@ dynamodb-cdc-pipeline:
         username: null
         password: null
 
-# DynamoDB Stream Processor (シンプルなHTTPソース版)
 dynamodb-stream-pipeline:
   source:
     dynamodb:
       aws:
-          region: "us-east-1"
+        region: "us-east-1"
       tables:
         - table_arn: "arn:aws:dynamodb:us-east-1:000000000000:table/test-table"
           stream:
