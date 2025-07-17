@@ -30,6 +30,10 @@ dynamodb-stream-pipeline:
         - table_arn: "arn:aws:dynamodb:us-east-1:000000000000:table/test-table"
           stream:
             start_position: "LATEST"
+          export:
+            s3_bucket: "data-prepper-export"
+            s3_region: "us-east-1"
+            s3_prefix: "export/"
   processor:
     - add_entries:
         entries:
