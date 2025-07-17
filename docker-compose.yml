@@ -35,6 +35,13 @@ services:
       volumes:
         - "./volume:/var/lib/localstack"
         - "/var/run/docker.sock:/var/run/docker.sock"
+        - "./localstack/init-aws.d:/etc/localstack/init/ready.d"
+      healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+        interval: 10s
+        timeout: 5s
+        retries: 10
+        start_period: 30s
   data-prepper:
       container_name: data-prepper
       image: opensearchproject/data-prepper:latest
@@ -42,8 +49,10 @@ services:
         - "4900:4900"
         - "21890:21890"
       depends_on:
-        - opensearch
-        - localstack
+        opensearch:
+          condition: service_started
+        localstack:
+          condition: service_healthy
       environment:
         - AWS_REGION=us-east-1
         - AWS_ACCESS_KEY_ID=test
