@@ -26,41 +26,25 @@ services:
       depends_on:
         - opensearch
       environment:
-        - SERVICES=dynamodb,opensearch,s3
+        - SERVICES=dynamodb,opensearch,s3,lambda,iam,logs
         - OPENSEARCH_CUSTOM_BACKEND=http://opensearch:9200
         - DEBUG=1
         - AWS_DEFAULT_REGION=us-east-1
         - AWS_ACCESS_KEY_ID=test
         - AWS_SECRET_ACCESS_KEY=test
+        - LAMBDA_EXECUTOR=docker
+        - DOCKER_HOST=unix:///var/run/docker.sock
       volumes:
         - "./volume:/var/lib/localstack"
         - "/var/run/docker.sock:/var/run/docker.sock"
         - "./localstack/init-aws.d:/etc/localstack/init/ready.d"
+        - "./scripts:/var/lib/localstack/scripts"
       healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
         interval: 10s
         timeout: 5s
         retries: 10
         start_period: 30s
-  data-prepper:
-      container_name: data-prepper
-      image: opensearchproject/data-prepper:latest
-      ports:
-        - "4900:4900"
-        - "21890:21890"
-      depends_on:
-        opensearch:
-          condition: service_started
-        localstack:
-          condition: service_healthy
-      environment:
-        - AWS_REGION=us-east-1
-        - AWS_ACCESS_KEY_ID=test
-        - AWS_SECRET_ACCESS_KEY=test
-        - AWS_ENDPOINT_URL=http://localstack:4566
-      volumes:
-        - "./data-prepper/pipelines:/usr/share/data-prepper/pipelines"
-        - "./data-prepper/config:/usr/share/data-prepper/config"
 
 volumes:
   data01:

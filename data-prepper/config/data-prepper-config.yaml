@@ -1,5 +1,0 @@
-ssl: false
-
-extensions:
-  geoip_service:
-    maxmind:

@@ -12,14 +12,6 @@ awslocal dynamodb create-table \
 
 echo "テーブル 'test-table' を作成しました"
 
-# Point-in-Time Recovery (PITR) を有効化
-echo "📊 Point-in-Time Recovery を有効化中..."
-awslocal dynamodb update-continuous-backups \
-  --table-name test-table \
-  --point-in-time-recovery-specification PointInTimeRecoveryEnabled=true
-
-echo "✅ PITR が有効化されました"
-
 # テーブル作成確認
 echo "作成されたテーブル一覧:"
 awslocal dynamodb list-tables
